@@ -1,5 +1,7 @@
 const mysql = require("mysql2");
 
+console.log(process.env.DB_USER, "USER");
+
 const connection = mysql.createConnection({
   host: "aws.connect.psdb.cloud",
   user: "93lztfp46u8mafn9aa04",
@@ -8,6 +10,14 @@ const connection = mysql.createConnection({
   ssl: {
     rejectUnauthorized: false,
   },
+});
+
+connection.connect((err) => {
+  if (err) {
+    console.error("Error connecting to database: " + err.message);
+    return;
+  }
+  console.log("Connected to database as ID " + connection.threadId);
 });
 
 module.exports = connection;
